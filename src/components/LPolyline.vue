@@ -96,6 +96,16 @@ const props = {
     type: String,
     custom: true,
     default: null
+  },
+  animate: {
+    type: Boolean,
+    custom: true,
+    default: false
+  },
+  snakingSpeed: {
+    type: Number,
+    custom: true,
+    default: 150
   }
 };
 
@@ -119,7 +129,7 @@ export default {
     }
     const otherPropertytoInitialize = ['smoothFactor', 'noClip', 'stroke', 'color', 'weight',
       'opacity', 'lineCap', 'lineJoin', 'dashArray', 'dashOffset', 'fill', 'fillColor',
-      'fillOpacity', 'fillRule', 'className'
+      'fillOpacity', 'fillRule', 'className', 'animate', 'snakingSpeed'
     ];
     for (var i = 0; i < otherPropertytoInitialize.length; i++) {
       const propName = otherPropertytoInitialize[i];
@@ -127,12 +137,16 @@ export default {
         options[propName] = this[propName];
       }
     }
-    this.mapObject = L.polyline(this.latLngs, options);
+    const polyline = L.polyline(this.latLngs, options);
+    this.mapObject = polyline;
     L.DomEvent.on(this.mapObject, this.$listeners);
     propsBinder(this, this.mapObject, props);
     this.ready = true;
     this.parentContainer = findRealParent(this.$parent);
     this.parentContainer.addLayer(this, !this.visible);
+    if(options.animate){
+      polyline.snakeIn();
+    }
   },
   beforeDestroy () {
     this.parentContainer.removeLayer(this);

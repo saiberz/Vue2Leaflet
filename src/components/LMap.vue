@@ -6,6 +6,7 @@
 
 <script>
 import L from 'leaflet';
+import '../utils/animation.js';
 import propsBinder from '../utils/propsBinder.js';
 
 const props = {

@@ -20,7 +20,9 @@
         :lat-lngs="polygon.latlngs"
         :color="polygon.color"/>
       <l-polyline
+        :animate="polyline.animate"
         :lat-lngs="polyline.latlngs"
+        :snakingSpeed="polyline.snakingSpeed"
         :color="polyline.color"/>
     </l-map>
   </div>
@@ -57,6 +59,8 @@ export default {
       },
       polyline: {
         latlngs: [[47.334852, -1.509485], [47.342596, -1.328731], [47.241487, -1.190568], [47.234787, -1.358337]],
+        animate: true,
+        snakingSpeed: 10,
         color: 'green'
       },
       url: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
